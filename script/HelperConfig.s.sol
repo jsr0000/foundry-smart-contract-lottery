@@ -44,6 +44,10 @@ contract HelperConfig is Script, CodeConstants {
         }
     }
 
+    function getConfig() public returns (NetworkConfig memory) {
+        return getConfigByChainId(block.chainid);
+    }
+
     function getSepoliaEthConfig() public pure returns (NetworkConfig memory) {
         return
             NetworkConfig({
@@ -63,7 +67,7 @@ contract HelperConfig is Script, CodeConstants {
 
         vm.startBroadcast();
 
-        VRFCoordinatorV2_5Mock vrfCoordinator = new VRFCoordinatorV2_5Mock(
+        VRFCoordinatorV2_5Mock vrfCoordinatorMock = new VRFCoordinatorV2_5Mock(
             MOCK_BASE_FEE,
             MOCK_GAS_PRICE_LINK,
             MOCK_WEI_PER_UNIT_LINK
