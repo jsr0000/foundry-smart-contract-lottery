@@ -30,9 +30,22 @@ contract RaffleTest is Test {
         entranceFee = config.entranceFee;
         callbackGasLimit = config.callbackGasLimit;
         vrfCoordinatorV2 = config.vrfCoordinatorV2;
+        vm.deal(PLAYER, STARTING_PLAYER_BALANCE);
     }
 
     function testRaffleInitializesInOpenState() public view {
         assert(raffle.getRaffleState() == Raffle.RaffleState.OPEN);
+    }
+
+    function testRaffleRevertsWhenYouDontPayEnough() public {
+        vm.prank(PLAYER);
+        vm.expectRevert(Raffle.Raffle__SendMoreToEnterRaffle.selector);
+        raffle.enterRaffle();
+    }
+
+    function testRaffleRecordsPlayerWhenTheyEnter() public {
+        vm.prank(PLAYER);
+        raffle.enterRaffle{value: entranceFee}();
+        assert(raffle.getPlayer(0) == PLAYER);
     }
 }
