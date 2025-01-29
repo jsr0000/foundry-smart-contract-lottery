@@ -22,7 +22,7 @@ Before deploying the contract, ensure you have the following:
 
 - **Ethereum Wallet**: A wallet with some ETH for gas fees.
 - **Chainlink Subscription**: A funded Chainlink subscription for VRF and Automation.
-- **Development Environment**: Node.js, Hardhat, or Foundry for contract deployment and testing.
+- **Development Environment**: Node.js or Foundry for contract deployment and testing.
 
 ### Installation
 
@@ -41,16 +41,6 @@ Before deploying the contract, ensure you have the following:
    ```bash
    forge build
    ```
-
-### Deployment
-
-1. **Deploy the contract**:
-   Update the deployment script with your Chainlink subscription ID, key hash, and VRF coordinator address, then run:
-   ```bash
-   <!-- npx hardhat run scripts/deploy.js --network yourNetwork -->
-   ```
-
-## Usage
 
 ### Entering the Raffle
 
