@@ -3,6 +3,7 @@ pragma solidity ^0.8.19;
 
 import {Script} from "lib/forge-std/src/Script.sol";
 import {VRFCoordinatorV2_5Mock} from "lib/chainlink-brownie-contracts/contracts/src/v0.8/vrf/mocks/VRFCoordinatorV2_5Mock.sol";
+import {LinkToken} from "test/mocks/LinkToken.sol";
 
 abstract contract CodeConstants {
     uint256 public constant SEPOLIA_CHAIN_ID = 11155111;
@@ -23,6 +24,7 @@ contract HelperConfig is Script, CodeConstants {
         uint256 entranceFee;
         uint32 callbackGasLimit;
         address vrfCoordinatorV2;
+        address link;
     }
 
     NetworkConfig public localNetworkConfig;
@@ -51,12 +53,13 @@ contract HelperConfig is Script, CodeConstants {
     function getSepoliaEthConfig() public pure returns (NetworkConfig memory) {
         return
             NetworkConfig({
-                subscriptionId: 0,
+                subscriptionId: 55479308911403018927736489503835052891468836676871579532835829036768516793791,
                 interval: 30,
                 keyHash: 0x787d74caea10b2b357790d5b5247c2f63d1d91572a9846f780606e4d953677ae,
                 entranceFee: 0.01 ether,
                 callbackGasLimit: 500000,
-                vrfCoordinatorV2: 0x9DdfaCa8183c41ad55329BdeeD9F6A8d53168B1B
+                vrfCoordinatorV2: 0x9DdfaCa8183c41ad55329BdeeD9F6A8d53168B1B,
+                link: 0x779877A7B0D9E8603169DdbD7836e478b4624789
             });
     }
 
@@ -72,6 +75,7 @@ contract HelperConfig is Script, CodeConstants {
             MOCK_GAS_PRICE_LINK,
             MOCK_WEI_PER_UNIT_LINK
         );
+        LinkToken linkToken = new LinkToken();
 
         vm.stopBroadcast();
 
@@ -81,7 +85,8 @@ contract HelperConfig is Script, CodeConstants {
             keyHash: 0x787d74caea10b2b357790d5b5247c2f63d1d91572a9846f780606e4d953677ae,
             callbackGasLimit: 500000,
             vrfCoordinatorV2: address(vrfCoordinatorMock),
-            subscriptionId: 0
+            subscriptionId: 0,
+            link: address(linkToken)
         });
 
         return localNetworkConfig;
