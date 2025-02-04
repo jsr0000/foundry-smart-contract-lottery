@@ -5,7 +5,7 @@ import {Script} from "lib/forge-std/src/Script.sol";
 import {Raffle} from "../src/Raffle.sol";
 import {HelperConfig} from "./HelperConfig.s.sol";
 import {VRFCoordinatorV2_5Mock} from "lib/chainlink-brownie-contracts/contracts/src/v0.8/vrf/mocks/VRFCoordinatorV2_5Mock.sol";
-import {CreateSubscription} from "script/Interactions.s.sol";
+import {CreateSubscription, FundSubscription, AddConsumer} from "script/Interactions.s.sol";
 
 contract DeployRaffle is Script {
     function deployRaffle() public returns (Raffle, HelperConfig) {
@@ -18,6 +18,12 @@ contract DeployRaffle is Script {
                 config.subscriptionId,
                 config.vrfCoordinatorV2
             ) = createSubscription.createSubscription(config.vrfCoordinatorV2);
+            FundSubscription fundSubscription = new FundSubscription();
+            fundSubscription.fundSubscription(
+                config.vrfCoordinatorV2,
+                config.subscriptionId,
+                config.link
+            );
         }
 
         vm.startBroadcast();
@@ -32,6 +38,13 @@ contract DeployRaffle is Script {
         );
 
         vm.stopBroadcast();
+
+        AddConsumer addConsumer = new AddConsumer();
+        addConsumer.addConsumer(
+            address(raffle),
+            config.vrfCoordinatorV2,
+            config.subscriptionId
+        );
 
         return (raffle, helperConfig);
     }
