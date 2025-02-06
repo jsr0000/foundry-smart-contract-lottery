@@ -25,6 +25,7 @@ contract HelperConfig is Script, CodeConstants {
         uint32 callbackGasLimit;
         address vrfCoordinatorV2;
         address link;
+        address account;
     }
 
     NetworkConfig public localNetworkConfig;
@@ -59,7 +60,8 @@ contract HelperConfig is Script, CodeConstants {
                 entranceFee: 0.01 ether,
                 callbackGasLimit: 500000,
                 vrfCoordinatorV2: 0x9DdfaCa8183c41ad55329BdeeD9F6A8d53168B1B,
-                link: 0x779877A7B0D9E8603169DdbD7836e478b4624789
+                link: 0x779877A7B0D9E8603169DdbD7836e478b4624789,
+                account: 0x46efA6D7B7b5fc2F63CaA7855a3e6ab31cf8CD47
             });
     }
 
@@ -86,7 +88,8 @@ contract HelperConfig is Script, CodeConstants {
             callbackGasLimit: 500000,
             vrfCoordinatorV2: address(vrfCoordinatorMock),
             subscriptionId: 0,
-            link: address(linkToken)
+            link: address(linkToken),
+            account: 0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38
         });
 
         return localNetworkConfig;
