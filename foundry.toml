@@ -8,3 +8,6 @@ fs_permissions = [
     { access = "read", path = "./broadcast" },
     { access = "read", path = "./reports" },
 ]
+
+[fuzz]
+runs = 256
