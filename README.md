@@ -78,4 +78,4 @@ This project is licensed under the MIT License.
 
 ## Contact
 
-For questions or support, please contact Josh at josh.regnart@gmail.com. 
+For questions, please contact me at josh.regnart@gmail.com. 
